@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -20,6 +21,14 @@ public class Student
     @Column(name = "email")
     private String email;
 
+
+    @ManyToOne(fetch = FetchType.LAZY,
+               cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "course_student",
+               joinColumns = @JoinColumn(name = "student_id"),
+               inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses;
+
     public Student()
     {
     }
@@ -35,19 +44,14 @@ public class Student
         return id;
     }
 
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
     public String getFirstName()
     {
         return firstName;
     }
 
-    public void setFirstName(String firstName)
+    public String getEmail()
     {
-        this.firstName = firstName;
+        return email;
     }
 
     public String getLastName()
@@ -55,14 +59,29 @@ public class Student
         return lastName;
     }
 
+    public List<Course> getCourses()
+    {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses)
+    {
+        this.courses = courses;
+    }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
     public void setLastName(String lastName)
     {
         this.lastName = lastName;
-    }
-
-    public String getEmail()
-    {
-        return email;
     }
 
     public void setEmail(String email)
