@@ -22,7 +22,7 @@ public class Student
     private String email;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.LAZY,
                cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "course_student",
                joinColumns = @JoinColumn(name = "student_id"),
@@ -32,6 +32,7 @@ public class Student
     public Student()
     {
     }
+
     public Student(String firstName, String lastName, String email)
     {
         this.firstName = firstName;
